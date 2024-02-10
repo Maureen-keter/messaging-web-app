@@ -28,4 +28,10 @@ class User(db.Model, SerializerMixin):
     def check_password(self,plain_password):
         return check_password_hash(self.password,plain_password)
     
+    def to_json(self):
+        return {"id": self.id, 
+                "first_name": self.first_name, 
+                "last_name": self.last_name,
+                "phone_number": self.phone_number
+                }
     
