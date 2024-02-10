@@ -4,3 +4,5 @@ from sqlalchemy_serializer import SerializerMixin
 
 db = SQLAlchemy()
 
+class User(db.Model, SerializerMixin):
+    _tablename_ = 'users'
