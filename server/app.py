@@ -77,4 +77,11 @@ class User_Signup(Resource):
         if User.query.filter_by(phone_number = new_user.phone_number).first():
             return {'message': 'Phone number already registered'}, 400
 
-        
+        new_user.password = generate_password_hash(new_user.password).decode('utf-8') 
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return {'message': 'User registered successfully'}, 201
+
+
