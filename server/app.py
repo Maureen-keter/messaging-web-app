@@ -90,4 +90,8 @@ class User_Login(Resource):
         parser.add_argument('phone_number', required=True, help="Email address is required")
         parser.add_argument('password', required=True, help="Password is required")
         
-        
+        def post(self):
+            # Extract user information from the request
+            data = User_Login.parser.parse_args()
+
+            
