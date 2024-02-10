@@ -94,4 +94,7 @@ class User_Login(Resource):
             # Extract user information from the request
             data = User_Login.parser.parse_args()
 
+            # Find the user with the provided phone number
+            user = User.query.filter_by(phone_number= data['phone_number']).first()
+
             
