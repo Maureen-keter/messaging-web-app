@@ -46,4 +46,7 @@ class Message(db.Model, SerializerMixin):
     sent_at = db.Column(db.TIMESTAMP,server_default=db.func.now())
     media = db.Column(db.VARCHAR,nullable=True)
     
-    
+    sender_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    receiver_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+
+    x
