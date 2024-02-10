@@ -29,3 +29,17 @@ bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 
 
+class User_List(Resource):
+    @jwt_required()
+    def get(self):
+        user_list = []
+        for user in User.query.all():
+            user_dict = user.to_dict()
+            user_list.append(user_dict)
+
+        response = make_response(
+            jsonify(user_list),
+            200,
+        )
+        return response
+    
