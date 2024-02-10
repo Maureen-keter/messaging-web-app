@@ -119,3 +119,18 @@ class User_Login(Resource):
 
 
 
+api.add_resource(User_List, '/users')
+api.add_resource(User_by_id, '/users/<int:id>')
+
+api.add_resource(User_Signup, '/signup')
+api.add_resource(User_Login, '/login')
+
+api.add_resource(Message_List, '/messages')
+api.add_resource(Message_by_id, '/messages/<int:id>')
+
+
+
+
+
+if __name__ == "_main_":
+    app.run(port=5555,debug=True)
