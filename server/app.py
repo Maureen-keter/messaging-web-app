@@ -85,3 +85,9 @@ class User_Signup(Resource):
         return {'message': 'User registered successfully'}, 201
 
 
+class User_Login(Resource):
+        parser = reqparse.RequestParser()
+        parser.add_argument('phone_number', required=True, help="Email address is required")
+        parser.add_argument('password', required=True, help="Password is required")
+        
+        
