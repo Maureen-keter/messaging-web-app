@@ -43,3 +43,15 @@ class User_List(Resource):
         )
         return response
     
+class User_by_id(Resource):
+    @jwt_required()
+    def get(self, id):
+        user = User.query.filter_by(id = id).first()
+        user_dict = user.to_dict()
+
+        response = make_response(
+            jsonify(user_dict),
+            200,
+        )
+        return response
+    
