@@ -101,4 +101,21 @@ class User_Login(Resource):
                 # check if provided password is correct
                 is_password_correct = user.check_password(data['password'])
 
-                
+                if is_password_correct:
+                    # Generate token and return user dict
+                    user_json = user.to_json()
+                    access_token = create_access_token(identity=user_json['id'])
+                    refresh_token = create_refresh_token(identity=user_json['id'])
+                    return {"message": "Login successful",
+                            "status": "success",
+                            "access_token": access_token,
+                            "refresh_token": refresh_token,
+                            "user": user_json,
+                            }, 200
+                else:
+                    return {'message': 'Invalid phone number or password'}, 401
+            else:
+                return {'message': 'User not found'}, 404
+
+
+
