@@ -55,3 +55,12 @@ class User_by_id(Resource):
         )
         return response
     
+class User_Signup(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('first_name', required=True, help="Firstname is required")
+    parser.add_argument('last_name', required=True, help="Last_name is required")
+    parser.add_argument('phone_number', required=True, help="Phone number is required")
+    parser.add_argument('password', required=True, help="Password is required")
+    parser.add_argument('profile_photo', required=False)
+
+    x
