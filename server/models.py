@@ -39,4 +39,11 @@ class User(db.Model, SerializerMixin):
 class Message(db.Model, SerializerMixin):
     _tablename_ = 'messages'
 
-    x
+    serialize_rules = ('-sender', '-receiver',)
+
+    id = db.Column(db.Integer,primary_key = True)
+    message = db.Column(db.VARCHAR,nullable = True)
+    sent_at = db.Column(db.TIMESTAMP,server_default=db.func.now())
+    media = db.Column(db.VARCHAR,nullable=True)
+    
+    
