@@ -35,3 +35,8 @@ class User(db.Model, SerializerMixin):
                 "phone_number": self.phone_number
                 }
     
+
+class Message(db.Model, SerializerMixin):
+    _tablename_ = 'messages'
+
+    x
