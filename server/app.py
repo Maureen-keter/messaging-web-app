@@ -73,4 +73,8 @@ class User_Signup(Resource):
         if not new_user.phone_number or not new_user.password:
             return {'message': 'Both phone and password are required'}, 400
 
-       
+        # Check if the phone number is already registered
+        if User.query.filter_by(phone_number = new_user.phone_number).first():
+            return {'message': 'Phone number already registered'}, 400
+
+        
