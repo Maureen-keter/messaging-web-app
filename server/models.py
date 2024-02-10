@@ -49,4 +49,11 @@ class Message(db.Model, SerializerMixin):
     sender_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     receiver_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 
-    x
+    def _repr_(self):
+        return {"id": self.id, 
+                "contact_id": self.contact_id, 
+                "user_id": self.user_id,
+                "message": self.message,
+                "media": self.media,
+                "sent_at": self.sent_at
+                }
