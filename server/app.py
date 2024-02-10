@@ -97,4 +97,8 @@ class User_Login(Resource):
             # Find the user with the provided phone number
             user = User.query.filter_by(phone_number= data['phone_number']).first()
 
-            
+            if user:
+                # check if provided password is correct
+                is_password_correct = user.check_password(data['password'])
+
+                
