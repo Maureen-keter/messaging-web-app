@@ -18,3 +18,14 @@ app.config["JWT_SECRET_KEY"] = "super-secret"
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 app.json.compact = False
 
+migrations =Migrate(app ,db)
+
+db.init_app(app)
+
+api=Api(app)
+CORS(app)
+
+bcrypt = Bcrypt(app)
+jwt = JWTManager(app)
+
+
