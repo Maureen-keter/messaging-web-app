@@ -61,6 +61,16 @@ class User_Signup(Resource):
     parser.add_argument('last_name', required=True, help="Last_name is required")
     parser.add_argument('phone_number', required=True, help="Phone number is required")
     parser.add_argument('password', required=True, help="Password is required")
-    parser.add_argument('profile_photo', required=False)
 
-    x
+    def post(self):
+        # Extract user information from the request
+        data = User_Signup.parser.parse_args()
+        new_user = User(**data)
+        print(new_user.first_name)
+        print(new_user.last_name)
+        
+        # Validate if phone and password are provided
+        if not new_user.phone_number or not new_user.password:
+            return {'message': 'Both phone and password are required'}, 400
+
+       
