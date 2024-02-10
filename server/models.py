@@ -17,6 +17,8 @@ class User(db.Model, SerializerMixin):
     profile_photo = db.Column (db.VARCHAR ,nullable = True)
     created_at = db.Column(db.TIMESTAMP, server_default=db.func.now())
 
+    messages_sent = db.relationship('Message', backref = 'sender', foreign_keys = 'Message.sender_id')
+    messages_received = db.relationship('Message', backref = 'receiver', foreign_keys = 'Message.receiver_id')
     
     def _repr_(self):
         return {"id": self.id, 
