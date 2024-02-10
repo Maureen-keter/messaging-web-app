@@ -18,3 +18,11 @@ class User(db.Model, SerializerMixin):
     created_at = db.Column(db.TIMESTAMP, server_default=db.func.now())
 
     
+    def _repr_(self):
+        return {"id": self.id, 
+                "first_name": self.first_name, 
+                "last_name": self.last_name,
+                "phone_number": self.phone_number
+                }
+    
+    
