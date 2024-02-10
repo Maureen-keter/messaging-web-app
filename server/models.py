@@ -25,4 +25,7 @@ class User(db.Model, SerializerMixin):
                 "phone_number": self.phone_number
                 }
     
+    def check_password(self,plain_password):
+        return check_password_hash(self.password,plain_password)
+    
     
