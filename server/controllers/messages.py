@@ -17,3 +17,10 @@ class Messages(Resource):
             return make_response(jsonify({"message":"message created successfully"}), 201)
         except Exception as e:
             return make_response(jsonify({"Error":"error creating message"}), 404)
+class MessageByID(Resource):
+    def get(self, id):
+        message=Message.query.filter_by(id=id).first().to_dict()
+        if message:
+            return make_response(jsonify(message), 200)
+        return make_response(jsonify({"message":"message not found"}), 404)
+    d
