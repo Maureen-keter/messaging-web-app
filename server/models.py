@@ -10,7 +10,7 @@ class User(db.Model, SerializerMixin):
     id=db.Column(db.Integer, primary_key=True)
     firstname=db.Column(db.String)
     lastname=db.Column(db.String)
-    email=db.Column(db.String)
+    email=db.Column(db.String, unique=True, nullable=False)
     password=db.Column(db.String)
     role=db.Column(db.String)
     id_no=db.Column(db.Integer, nullable=False, unique=True)
