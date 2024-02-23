@@ -16,7 +16,9 @@ class User(db.Model, SerializerMixin):
     id_no=db.Column(db.Integer, nullable=False, unique=True)
     phone_no=db.Column(db.Integer, nullable=False, unique=True)
 
-    
+    messages_sent=db.relationship('Message', backref="sender", foreign_keys="Message.sender_id")
+    messages_received=db.relationship("Message", backref="receiver", foreign_keys="Message.receiver_id")   
+
 class Message(db.Model, SerializerMixin):
     __tablename__="messages"
     id=db.Column(db.Integer, primary_key=True)
