@@ -23,4 +23,17 @@ class MessageByID(Resource):
         if message:
             return make_response(jsonify(message), 200)
         return make_response(jsonify({"message":"message not found"}), 404)
-    d
+    def patch(self, id):
+        message=Message.query.filter_by(id=id).first()
+        if message:
+            data=request.get_json()
+            for field in ['id', 'message', 'urgent']:
+                if field in data:
+                    setattr(message, data, data[field])
+                    try:
+                        db.session.commit()
+                        return make_response(jsonify({"message":"message updated successfully"}), 200)
+                    except Exception as e:
+                        return make_response(jsonify({"message":"Error updating message"}))
+        return make_response(jsonify({"message":"message not found"}), 404)
+    
