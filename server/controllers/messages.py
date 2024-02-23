@@ -27,7 +27,7 @@ class MessageByID(Resource):
         message=Message.query.filter_by(id=id).first()
         if message:
             data=request.get_json()
-            for field in ['id', 'message', 'urgent']:
+            for field in ['id', 'message', 'urgent','sender_id', 'receiver_id']:
                 if field in data:
                     setattr(message, data, data[field])
                     try:
