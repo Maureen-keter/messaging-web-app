@@ -8,6 +8,12 @@ class Messages(Resource):
         if messages:
             return make_response(jsonify(messages), 200)
         return make_response(jsonify({"message":"users not found"}))
-
-
-                    
+    def post(self):
+        data=request.get_json()
+        message=Message(message=data['message'], sent_at=data['sent_at'])
+        try:
+            db.session.add(message)
+            db.session.commit()
+            return make_response(jsonify({"message":"message created successfully"}), 201)
+        except Exception as e:
+            return make_response(jsonify({"Error":"error creating message"}), 404)
