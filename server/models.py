@@ -17,6 +17,15 @@ class User(db.Model, SerializerMixin):
     phone_no=db.Column(db.Integer, nullable=False, unique=True)
 
     
+class Message(db.Model, SerializerMixin):
+    __tablename__="messages"
+    id=db.Column(db.Integer, primary_key=True)
+    message=db.Column(db.String)
+    urgent=db.Column(db.Boolean)
+    sent_at=db.Column(db.TIMESTAMP, default=datetime.utcnow)
+
+    sender_id=db.Column(db.Integer, db.ForeignKey("users.id"))
+    receiver_id=db.Column(db.Integer, db.ForeignKey("users.id"))
     
     
    
