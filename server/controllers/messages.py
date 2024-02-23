@@ -36,4 +36,15 @@ class MessageByID(Resource):
                     except Exception as e:
                         return make_response(jsonify({"message":"Error updating message"}))
         return make_response(jsonify({"message":"message not found"}), 404)
-    
+    def delete(self, id):
+        message=Message.query.filter_by(id=id).first()
+        if not message:
+            abort(404, description='message not found')
+        try:
+            db.session.delete(message)
+            db.session.commit()
+            return make_response(jsonify({"message":"message deleted successfully"}), 200)
+        except Exception as e:
+            return make_response(jsonify({"message":"failed to delete message"}), 404)
+
+                    
