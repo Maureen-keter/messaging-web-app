@@ -29,4 +29,18 @@ class UserByID(Resource):
         if user:
             return make_response(jsonify(user), 200)
         return make_response(jsonify({"error":"user not found"}), 404)
+    def patch(user, id):
+        user=User.filter_by(id=id).first().to_dict()
+        if user:
+            data=request.get_json()
+            for field in ["id", "firstname", "lastname", "email", "password","role", "id_no", "phone_no"]:
+                if field in data:
+                    setattr(user, data, data[field])
+                    try:
+                        db.session.commit()
+                        return make_response(jsonify({"message"}), 200)
+                    except Exception as e:
+                        return make_response(jsonify({"error":"error updating user"}), 400)
+        return make_response(jsonify({"error":"user not found"}), 404)
+    
     
