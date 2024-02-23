@@ -43,4 +43,16 @@ class UserByID(Resource):
                         return make_response(jsonify({"error":"error updating user"}), 400)
         return make_response(jsonify({"error":"user not found"}), 404)
     
-    
+    def delete(self, id):
+        user=User.filter_by(id=id).first().to_dict()
+        if user:
+            try:
+                db.session.delete(user)
+                db.session.commit()
+                return make_response(jsonify({"message":"user deleted successfully"}), 200)
+            except Exception as e:
+                return make_response(jsonify({"error":"error deleting user"}), 404)
+        return make_response(jsonify({"error":"user not found"}), 404)
+            
+
+
