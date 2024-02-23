@@ -23,3 +23,10 @@ class Users(Resource):
         except Exception as e:
             return make_response(jsonify({"error":"error creating the user"}), 404)
             
+class UserByID(Resource):
+    def get(self, id):
+        user=User.filter_by(id=id).first().to_dict()
+        if user:
+            return make_response(jsonify(user), 200)
+        return make_response(jsonify({"error":"user not found"}), 404)
+    
