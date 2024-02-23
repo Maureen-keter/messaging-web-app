@@ -1,61 +1,22 @@
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import check_password_hash
 from sqlalchemy_serializer import SerializerMixin
+from datetime import datetime
 
-db = SQLAlchemy()
+db=SQLAlchemy()
 
 class User(db.Model, SerializerMixin):
-    _tablename_ = 'users'
+    __tablename__="users"
+    id=db.Column(db.Integer, primary_key=True)
+    firstname=db.Column(db.String)
+    lastname=db.Column(db.String)
+    email=db.Column(db.String)
+    password=db.Column(db.String)
+    role=db.Column(db.String)
+    id_no=db.Column(db.Integer, nullable=False, unique=True)
+    phone_no=db.Column(db.Integer, nullable=False, unique=True)
 
-    serialize_rules = ('-password',)
     
-    id = db.Column(db.Integer,primary_key = True)
-    first_name =db.Column(db.String,nullable = False)
-    last_name  = db.Column (db.String,nullable = False)
-    phone_number = db.Column(db.String,nullable = False ,unique=True)
-    password = db.Column (db.VARCHAR ,nullable = False)
-    profile_photo = db.Column (db.VARCHAR ,nullable = True)
-    created_at = db.Column(db.TIMESTAMP, server_default=db.func.now())
-
-    messages_sent = db.relationship('Message', backref = 'sender', foreign_keys = 'Message.sender_id')
-    messages_received = db.relationship('Message', backref = 'receiver', foreign_keys = 'Message.receiver_id')
     
-    def _repr_(self):
-        return {"id": self.id, 
-                "first_name": self.first_name, 
-                "last_name": self.last_name,
-                "phone_number": self.phone_number
-                }
     
-    def check_password(self,plain_password):
-        return check_password_hash(self.password,plain_password)
-    
-    def to_json(self):
-        return {"id": self.id, 
-                "first_name": self.first_name, 
-                "last_name": self.last_name,
-                "phone_number": self.phone_number
-                }
-    
-
-class Message(db.Model, SerializerMixin):
-    _tablename_ = 'messages'
-
-    serialize_rules = ('-sender', '-receiver',)
-
-    id = db.Column(db.Integer,primary_key = True)
-    message = db.Column(db.VARCHAR,nullable = True)
-    sent_at = db.Column(db.TIMESTAMP,server_default=db.func.now())
-    media = db.Column(db.VARCHAR,nullable=True)
-    
-    sender_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    receiver_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-
-    def _repr_(self):
-        return {"id": self.id, 
-                "contact_id": self.contact_id, 
-                "user_id": self.user_id,
-                "message": self.message,
-                "media": self.media,
-                "sent_at": self.sent_at
-                }
+   
